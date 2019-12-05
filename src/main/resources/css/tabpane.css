@@ -1,0 +1,11 @@
+.jfx-tab-pane .headers-region {
+    -fx-background-color: black;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: black;
+}
+
+.jfx-tab-pane .control-buttons-tab .jfx-rippler {
+    -jfx-rippler-fill: white;
+}

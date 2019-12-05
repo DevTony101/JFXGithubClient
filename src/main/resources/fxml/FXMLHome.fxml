@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.HomeController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <top>
+            <Pane prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+               <children>
+                  <OctIconView fill="WHITE" layoutX="14.0" layoutY="55.0" size="50" />
+                  <TextField layoutX="90.0" layoutY="24.0" prefHeight="30.0" prefWidth="250.0" promptText="Search or jump to..." style="-fx-background-color: #3F4448; -fx-text-fill: white;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <OctIconView fill="WHITE" glyphName="DASH" layoutX="842.0" layoutY="48.0" onMouseClicked="#hideWindow" size="30">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </OctIconView>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" layoutX="870.0" layoutY="46.0" onMouseClicked="#closeWindow" size="20">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <Label fx:id="lblName" layoutX="530.0" layoutY="18.0" prefHeight="25.0" prefWidth="170.0" text="Tony Manjarres" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblUsername" layoutX="530.0" layoutY="34.0" prefHeight="25.0" prefWidth="112.0" text="\@DevTony101" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Pane fx:id="avatarPane" layoutX="462.0" layoutY="14.0" prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: white;">
+                     <children>
+                        <ImageView fx:id="imAvatar" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+                  <JFXButton layoutX="713.0" layoutY="24.0" onMouseClicked="#logOut" prefHeight="29.0" prefWidth="80.0" style="-fx-background-color: #F35000;" text="Log Out" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTabPane prefHeight="520.0" prefWidth="900.0" stylesheets="@../css/tabpane.css">
+                     <tabs>
+                        <Tab text="My Repositories">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="450.0" prefWidth="300.0">
+                                       <content>
+                                          <VBox fx:id="vbRepos" prefHeight="448.0" prefWidth="285.0" />
+                                       </content></ScrollPane>
+                                    <Pane layoutX="325.0" layoutY="14.0" prefHeight="220.0" prefWidth="560.0" style="-fx-border-color: #C8C8C8;">
+                                       <children>
+                                          <Label graphicTextGap="15.0" layoutX="14.0" layoutY="14.0" text="Details">
+                                             <font>
+                                                <Font name="Segoe UI" size="26.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="INFO_CIRCLE" size="30" />
+                                             </graphic>
+                                          </Label>
+                                          <Separator layoutX="14.0" layoutY="55.0" prefWidth="500.0" />
+                                          <Label layoutX="14.0" layoutY="68.0" text="Name:">
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblRepoName" layoutX="73.0" layoutY="68.0" prefHeight="19.0" prefWidth="330.0">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblPrivate" alignment="CENTER" layoutX="444.0" layoutY="68.0" prefHeight="17.0" prefWidth="70.0" style="-fx-border-color: #C8C8C8; -fx-background-radius: 1em; -fx-border-radius: 1em;" text="Private" textAlignment="CENTER" />
+                                          <Label layoutX="14.0" layoutY="91.0" text="Primary Language:">
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblRepoLanguage" layoutX="169.0" layoutY="91.0" prefHeight="19.0" prefWidth="90.0">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblRepoDesc" layoutX="14.0" layoutY="121.0" prefHeight="40.0" prefWidth="500.0" wrapText="true">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="187.0" text="Created At:">
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblRepoCreation" layoutX="110.0" layoutY="187.0" prefHeight="19.0" prefWidth="88.0">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="221.0" layoutY="187.0" text="Parent Repo Owner:">
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblRepoParent" layoutX="387.0" layoutY="187.0" prefHeight="19.0" prefWidth="109.0">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXButton fx:id="btnDeleteRepo" disable="true" layoutX="385.0" layoutY="14.0" onMouseClicked="#deleteRepo" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: #CC2532;" text="Delete This Repo" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <MaterialDesignIconView fill="WHITE" glyphName="DELETE" size="15" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <Label layoutX="270.0" layoutY="91.0" text="Branches:">
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblBranches" layoutX="358.0" layoutY="91.0" prefHeight="19.0" prefWidth="156.0">
+                                             <font>
+                                                <Font name="Segoe UI" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXButton layoutX="241.0" layoutY="14.0" onMouseClicked="#clearDetails" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: #B5B119;" text="Clear Details" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE" size="15" />
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </Pane>
+                                    <Pane layoutX="325.0" layoutY="244.0" prefHeight="220.0" prefWidth="560.0" style="-fx-border-color: #C8C8C8;">
+                                       <children>
+                                          <Label graphicTextGap="15.0" layoutX="14.0" layoutY="14.0" text="File Directory">
+                                             <font>
+                                                <Font name="Segoe UI" size="26.0" />
+                                             </font>
+                                             <graphic>
+                                                <MaterialDesignIconView glyphName="FILE_MULTIPLE" size="25" />
+                                             </graphic>
+                                          </Label>
+                                          <Separator layoutX="14.0" layoutY="55.0" prefWidth="500.0" />
+                                       </children>
+                                    </Pane>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab text="Pull Requests">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab text="Issues">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab text="Followers">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LoginController">
+    <children>
+        <AnchorPane layoutY="26.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: whitesmoke;">
+            <children>
+                <FontAwesomeIconView fx:id="btnCerrar" glyphName="CLOSE" layoutX="14.0" layoutY="34.0" onMouseClicked="#closeWindow" size="25">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+            </FontAwesomeIconView>
+                <Text layoutX="552.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In to GitHub" AnchorPane.rightAnchor="49.00732421875">
+               <font>
+                  <Font size="32.0" />
+               </font>
+                </Text>
+                <JFXTextField fx:id="usernameField" alignment="CENTER_RIGHT" focusColor="#2188ff" labelFloat="true" layoutX="451.0" layoutY="84.0" prefHeight="39.0" prefWidth="301.0" promptText="Username" unFocusColor="BLACK">
+               <font>
+                  <Font size="18.0" />
+               </font>
+                </JFXTextField>
+                <JFXPasswordField fx:id="passwordField" alignment="CENTER_RIGHT" focusColor="#2188ff" labelFloat="true" layoutX="451.0" layoutY="186.0" prefHeight="39.0" prefWidth="301.0" promptText="Password" unFocusColor="BLACK">
+               <font>
+                  <Font size="18.0" />
+               </font>
+                </JFXPasswordField>
+                <JFXButton buttonType="RAISED" layoutX="602.0" layoutY="274.0" onMouseClicked="#signIn" prefHeight="32.0" prefWidth="150.0" ripplerFill="WHITE" style="-fx-background-radius: 5; -fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: #29b149; -fx-background-color: #29b149;" text="Sign In" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+                <Label fx:id="lblError" alignment="CENTER" layoutX="406.0" layoutY="251.0" prefHeight="39.0" prefWidth="212.0" text="¡Revisa tus Credenciales!" textAlignment="CENTER" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                    </font>
+                </Label>
+            <Separator layoutX="452.0" layoutY="377.0" prefWidth="300.0" />
+            <Label alignment="CENTER" layoutX="538.0" layoutY="369.0" prefHeight="17.0" prefWidth="128.0" style="-fx-background-color: whitesmoke;" text="New to GitHub?" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Hyperlink layoutX="540.0" layoutY="401.0" onAction="#joinGithub" text="Create an Account">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Hyperlink>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="panel" layoutX="50.0" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: black;">
+            <children>
+                <Label alignment="CENTER" layoutX="12.0" layoutY="459.0" prefHeight="27.0" prefWidth="326.0" text="UNA APLICACIÓN HECHA POR MIGUEL MANJARRES" textAlignment="CENTER" textFill="WHITE" visible="false">
+                    <font>
+                        <Font name="Segoe UI Bold" size="11.0" />
+                    </font>
+                </Label>
+            <FontAwesomeIconView fill="WHITE" glyphName="GITHUB" layoutX="14.0" layoutY="311.0" size="175" />
+            <Label alignment="CENTER" layoutX="175.0" layoutY="200.0" prefHeight="100.0" prefWidth="180.0" text="GitHub&#10;Open Source&#10;Software" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
