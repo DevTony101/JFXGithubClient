@@ -1,8 +1,7 @@
 # JFXGithubClient
 A JavaFX Github Client (For Demonstration Purposes Only).
 
-![Banner1](https://github.com/DevTony101/JFXGithubClient/blob/master/banner1.png)
-![Banner1](https://github.com/DevTony101/JFXGithubClient/blob/master/banner2.png)
+![Banner2](https://github.com/DevTony101/JFXGithubClient/blob/master/banner2.png)
 
 The project uses the [Github API for Java](https://github.com/github-api/github-api). You can use it as soon as you download the project.
 
