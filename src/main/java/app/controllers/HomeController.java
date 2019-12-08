@@ -174,31 +174,27 @@ public class HomeController implements Initializable {
         // TODO: Implement the observer pattern to avoid using this approach
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), (event) -> {
             GHRepository selected = SELECTED;
-            if (selected != null) {
+            if (selected != null) try {
                 btnDeleteRepo.setDisable(false);
-                try {
-                    lblRepoName.setText(selected.getName());
-                    lblRepoLanguage.setText(selected.getLanguage());
-                    lblBranches.setText(String.valueOf(selected.getBranches().size()));
-                    String desc = selected.getDescription();
-                    if (desc != null && !desc.isEmpty()) {
-                        lblRepoDesc.setText(desc);
-                    } else {
-                        lblRepoDesc.setText("No Description Available.");
-                    }
-                    lblPrivate.setText(selected.isPrivate() ? "Private" : "Public");
-                    lblRepoCreation.setText(selected.getCreatedAt().toString().substring(0, 10));
-                    if (selected.isFork()) {
-                        GHRepository parent = selected.getParent();
-                        lblRepoParent.setText(parent.getOwnerName());
-                    } else {
-                        lblRepoParent.setText("Does Not Have");
-                    }
-                } catch (IOException e) {
-                    System.err.println("Error Rendering Repo Details: " + e.getMessage());
-                } finally {
-                    SELECTED = null;
+                lblRepoName.setText(selected.getName());
+                lblRepoLanguage.setText(selected.getLanguage());
+                lblBranches.setText(String.valueOf(selected.getBranches().size()));
+                String desc = selected.getDescription();
+                lblRepoDesc.setText("No Description Available.");
+                if (desc != null && !desc.isEmpty()) {
+                    lblRepoDesc.setText(desc);
                 }
+                lblPrivate.setText(selected.isPrivate() ? "Private" : "Public");
+                lblRepoCreation.setText(selected.getCreatedAt().toString().substring(0, 10));
+                lblRepoParent.setText("Does Not Have");
+                if (selected.isFork()) {
+                    GHRepository parent = selected.getParent();
+                    lblRepoParent.setText(parent.getOwnerName());
+                }
+            } catch (IOException e) {
+                System.err.println("Error Rendering Repo Details: " + e.getMessage());
+            } finally {
+                SELECTED = null;
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -211,16 +207,13 @@ public class HomeController implements Initializable {
             // Loading the repositories
             for (String key : user.getRepositories().keySet()) {
                 GHRepository repo = user.getRepository(key);
-                if (repo != null) try {
+                if (repo != null) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FXML_REPO_ITEM));
                     RepoItemController controller = new RepoItemController();
                     loader.setController(controller);
                     vbRepos.getChildren().add(loader.load());
                     controller.setRepository(repo);
-                } catch (IOException e) {
-                    System.err.println("Error Loading Repositories: " + e.getMessage());
                 }
-
             }
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);

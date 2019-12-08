@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.kohsuke.github.GHPerson;
+import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 
@@ -41,7 +41,7 @@ public class LoginController implements Initializable {
     private JFXPasswordField passwordField;
 
     //
-    public static GHPerson GH_USER = null;
+    public static GHUser GH_USER = null;
     private double xPos, yPos;
 
     @FXML

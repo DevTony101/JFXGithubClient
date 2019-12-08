@@ -58,16 +58,15 @@ public class RepoItemController implements Initializable {
 
         lblRepoName.setText(repo.getName());
         lblPrivate.setText(repo.isPrivate() ? "Private" : "Public");
+        lblRepoDesc.setText("No Description Available.");
         String desc = repo.getDescription();
         if (desc != null && !desc.isEmpty()) {
             lblRepoDesc.setText(desc);
-        } else {
-            lblRepoDesc.setText("No Description Available.");
         }
     }
 
     @FXML
-    void setSelected(ActionEvent event) {
+    void setSelectedRepository(ActionEvent event) {
         HomeController.SELECTED = this.repo;
     }
 }
