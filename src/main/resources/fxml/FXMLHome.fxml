@@ -133,7 +133,7 @@
                                                 <Font name="Segoe UI" size="16.0" />
                                              </font>
                                           </Label>
-                                          <JFXButton fx:id="btnDeleteRepo" disable="true" layoutX="385.0" layoutY="14.0" onMouseClicked="#deleteRepo" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: #CC2532;" text="Delete This Repo" textFill="WHITE">
+                                          <JFXButton fx:id="btnDeleteRepo" disable="true" layoutX="215.0" layoutY="16.0" onMouseClicked="#deleteRepo" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: #CC2532;" text="Delete This Repo" textFill="WHITE">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
@@ -151,12 +151,12 @@
                                                 <Font name="Segoe UI" size="16.0" />
                                              </font>
                                           </Label>
-                                          <JFXButton layoutX="241.0" layoutY="14.0" onMouseClicked="#clearDetails" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: #B5B119;" text="Clear Details" textFill="WHITE">
+                                          <JFXButton fx:id="btnBrowser" disable="true" graphicTextGap="6.0" layoutX="354.0" layoutY="16.0" onMouseClicked="#openRepo" prefHeight="29.0" prefWidth="160.0" style="-fx-background-color: #0075B6;" text="Open in Web Browser" textFill="WHITE">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                              <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE" size="15" />
+                                                <MaterialDesignIconView fill="WHITE" glyphName="EARTH" size="15" />
                                              </graphic>
                                           </JFXButton>
                                        </children>

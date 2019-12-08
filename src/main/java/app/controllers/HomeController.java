@@ -2,7 +2,9 @@ package app.controllers;
 
 import app.LoginController;
 import com.jfoenix.controls.JFXButton;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -59,10 +61,11 @@ public class HomeController implements Initializable {
     private Label lblRepoDesc, lblRepoCreation, lblRepoParent, lblBranches;
 
     @FXML
-    private JFXButton btnDeleteRepo;
+    private JFXButton btnDeleteRepo, btnBrowser;
 
     //
     private double xPos, yPos;
+    private GHRepository cache = null;
     public static GHRepository SELECTED = null;
 
     @FXML
@@ -107,8 +110,8 @@ public class HomeController implements Initializable {
                 throw new IOException("Error Loading Login FXML File.");
             }
         } catch (IOException e) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
             Utilities.showException("There was an error trying to log out.", e);
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -119,28 +122,28 @@ public class HomeController implements Initializable {
         alert.setContentText("Are you sure you want to delete this repository?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            GHRepository selected = SELECTED;
+            GHRepository selected = this.cache;
             if (selected != null) try {
                 selected.delete();
-                clearDetails(null);
+                clearDetails();
                 loadRepositories(LoginController.GH_USER);
             } catch (IOException ex) {
-                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                 Utilities.showException("Could not delete the selected repo.", ex);
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     @FXML
-    private void clearDetails(MouseEvent event) {
-        lblRepoName.setText("");
-        lblRepoDesc.setText("");
-        lblRepoCreation.setText("");
-        lblRepoLanguage.setText("");
-        lblRepoParent.setText("");
-        lblBranches.setText("");
-        btnDeleteRepo.setDisable(true);
-        SELECTED = null;
+    void openRepo(MouseEvent event) {
+        GHPerson user = LoginController.GH_USER;
+        String uri = "https://github.com/" + user.getLogin() + "/" + this.cache.getName();
+        try {
+            Desktop.getDesktop().browse(URI.create(uri));
+        } catch (IOException e) {
+            Utilities.showException("Could not open the selected repository.", e);
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
@@ -156,10 +159,9 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-        clearDetails(null);
+        clearDetails();
         GHPerson user = LoginController.GH_USER;
         try {
-            
             String name = (user.getName() != null && !user.getName().isEmpty() ? user.getName() : "No Name Available");
             lblName.setText(name);
             lblUsername.setText("@" + user.getLogin());
@@ -181,7 +183,9 @@ public class HomeController implements Initializable {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), (event) -> {
             GHRepository selected = SELECTED;
             if (selected != null) try {
+                this.cache = SELECTED;
                 btnDeleteRepo.setDisable(false);
+                btnBrowser.setDisable(false);
                 lblRepoName.setText(selected.getName());
                 lblRepoLanguage.setText(selected.getLanguage());
                 lblBranches.setText(String.valueOf(selected.getBranches().size()));
@@ -232,4 +236,17 @@ public class HomeController implements Initializable {
             controller.setFollower(user, follower);
         }
     }
+
+    private void clearDetails() {
+        lblRepoName.setText("");
+        lblRepoDesc.setText("");
+        lblRepoCreation.setText("");
+        lblRepoLanguage.setText("");
+        lblRepoParent.setText("");
+        lblBranches.setText("");
+        btnDeleteRepo.setDisable(true);
+        btnBrowser.setDisable(true);
+        SELECTED = null;
+    }
+
 }
