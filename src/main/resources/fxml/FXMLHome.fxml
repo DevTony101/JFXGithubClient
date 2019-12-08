@@ -189,7 +189,14 @@
                         </Tab>
                         <Tab text="Followers">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="460.0" prefWidth="872.0">
+                                       <content>
+                                          <VBox fx:id="vbFollowers" prefHeight="458.0" prefWidth="857.0" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children></AnchorPane>
                           </content>
                         </Tab>
                      </tabs>

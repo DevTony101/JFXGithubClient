@@ -7,5 +7,6 @@ public class Constants {
     public static final String FXML_LOGIN = "/fxml/FXMLLogin.fxml";
     public static final String FXML_HOME = "/fxml/FXMLHome.fxml";
     public static final String FXML_REPO_ITEM = "/fxml/RepoItem.fxml";
+    public static final String FXML_FOLLOWER_ITEM = "/fxml/FollowerItem.fxml";
     public static final String GITHUB_JOIN_URL = "https://github.com/join";
 }

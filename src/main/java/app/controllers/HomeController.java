@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kohsuke.github.GHPerson;
 import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHUser;
 import utilities.Constants;
 
 /**
@@ -49,7 +50,7 @@ public class HomeController implements Initializable {
     private Pane avatarPane;
 
     @FXML
-    private VBox vbRepos;
+    private VBox vbRepos, vbFollowers;
 
     @FXML
     private Label lblRepoName, lblPrivate, lblRepoLanguage;
@@ -164,6 +165,7 @@ public class HomeController implements Initializable {
             avatarPane.setMinWidth(image.getRequestedWidth());
             avatarPane.setMaxWidth(image.getRequestedWidth());
             loadRepositories(user);
+            loadFollowers((GHUser) user);
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -201,22 +203,28 @@ public class HomeController implements Initializable {
         timeline.play();
     }
 
-    private void loadRepositories(GHPerson user) {
+    private void loadRepositories(GHPerson user) throws IOException {
         vbRepos.getChildren().clear();
-        try {
-            // Loading the repositories
-            for (String key : user.getRepositories().keySet()) {
-                GHRepository repo = user.getRepository(key);
-                if (repo != null) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FXML_REPO_ITEM));
-                    RepoItemController controller = new RepoItemController();
-                    loader.setController(controller);
-                    vbRepos.getChildren().add(loader.load());
-                    controller.setRepository(repo);
-                }
+        for (String key : user.getRepositories().keySet()) {
+            GHRepository repo = user.getRepository(key);
+            if (repo != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FXML_REPO_ITEM));
+                RepoItemController controller = new RepoItemController();
+                loader.setController(controller);
+                vbRepos.getChildren().add(loader.load());
+                controller.setRepository(repo);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadFollowers(GHUser user) throws IOException {
+        vbFollowers.getChildren().clear();
+        for (GHUser follower : user.getFollowers()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FXML_FOLLOWER_ITEM));
+            FollowerItemController controller = new FollowerItemController();
+            loader.setController(controller);
+            vbFollowers.getChildren().add(loader.load());
+            controller.setFollower(user, follower);
         }
     }
 }
