@@ -31,7 +31,7 @@ import javafx.util.Duration;
 import org.kohsuke.github.GHPerson;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
-import utilities.Constants;
+import utilities.*;
 
 /**
  * FXML Controller class
@@ -107,7 +107,8 @@ public class HomeController implements Initializable {
                 throw new IOException("Error Loading Login FXML File.");
             }
         } catch (IOException e) {
-            System.err.println("Error With Log Out: " + e.getMessage());
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
+            Utilities.showException("There was an error trying to log out.", e);
         }
     }
 
@@ -125,6 +126,7 @@ public class HomeController implements Initializable {
                 loadRepositories(LoginController.GH_USER);
             } catch (IOException ex) {
                 Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                Utilities.showException("Could not delete the selected repo.", ex);
             }
         }
     }
@@ -157,6 +159,7 @@ public class HomeController implements Initializable {
         clearDetails(null);
         GHPerson user = LoginController.GH_USER;
         try {
+            
             String name = (user.getName() != null && !user.getName().isEmpty() ? user.getName() : "No Name Available");
             lblName.setText(name);
             lblUsername.setText("@" + user.getLogin());
@@ -168,6 +171,7 @@ public class HomeController implements Initializable {
             loadFollowers((GHUser) user);
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            Utilities.showException("Could not load user info.", ex);
         }
         initHandler();
     }
@@ -194,7 +198,8 @@ public class HomeController implements Initializable {
                     lblRepoParent.setText(parent.getOwnerName());
                 }
             } catch (IOException e) {
-                System.err.println("Error Rendering Repo Details: " + e.getMessage());
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
+                Utilities.showException("Error Rendering Repo Details.", e);
             } finally {
                 SELECTED = null;
             }

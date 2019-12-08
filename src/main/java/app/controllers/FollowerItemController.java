@@ -20,6 +20,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.kohsuke.github.GHUser;
 
+import utilities.*;
+
 /**
  * FXML Controller class
  *
@@ -60,6 +62,7 @@ public class FollowerItemController implements Initializable {
             imAvatar.setImage(image);
             btnFollow.setVisible(!user.getFollows().contains(follower));
         } catch (IOException ex) {
+            Utilities.showException("Could not load followers.", ex);
             Logger.getLogger(FollowerItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
