@@ -22,7 +22,7 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <top>
-            <Pane prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <Pane onKeyPressed="#reloadRepositories" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
                   <OctIconView fill="WHITE" layoutX="14.0" layoutY="55.0" size="50" />
                   <TextField layoutX="90.0" layoutY="24.0" prefHeight="30.0" prefWidth="250.0" promptText="Search or jump to..." style="-fx-background-color: #3F4448; -fx-text-fill: white;">
@@ -68,13 +68,13 @@
                <children>
                   <JFXTabPane prefHeight="520.0" prefWidth="900.0" stylesheets="@../css/tabpane.css">
                      <tabs>
-                        <Tab text="My Repositories">
+                        <Tab text="Home">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="450.0" prefWidth="300.0">
+                                    <ScrollPane layoutX="14.0" layoutY="90.0" prefHeight="370.0" prefWidth="300.0">
                                        <content>
-                                          <VBox fx:id="vbRepos" prefHeight="448.0" prefWidth="285.0" />
+                                          <VBox fx:id="vbRepos" prefHeight="368.0" prefWidth="285.0" />
                                        </content></ScrollPane>
                                     <Pane layoutX="325.0" layoutY="14.0" prefHeight="220.0" prefWidth="560.0" style="-fx-border-color: #C8C8C8;">
                                        <children>
@@ -174,6 +174,23 @@
                                           <Separator layoutX="14.0" layoutY="55.0" prefWidth="500.0" />
                                        </children>
                                     </Pane>
+                                    <Label layoutX="14.0" layoutY="14.0" text="My Repositories">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="searchField" layoutX="14.0" layoutY="47.0" onKeyReleased="#reloadRepositories" prefHeight="32.0" prefWidth="300.0" promptText="Find a repository..." />
+                                    <JFXButton graphicTextGap="8.0" layoutX="224.0" layoutY="12.0" onMouseClicked="#createNewRepository" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: #2DC150;" text="New" textFill="WHITE">
+                                       <graphic>
+                                          <OctIconView fill="WHITE" glyphName="REPO" size="16" />
+                                       </graphic>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXButton>
                                  </children></AnchorPane>
                           </content>
                         </Tab>

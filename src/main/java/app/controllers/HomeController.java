@@ -2,16 +2,20 @@ package app.controllers;
 
 import app.LoginController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,8 +26,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -63,10 +69,14 @@ public class HomeController implements Initializable {
     @FXML
     private JFXButton btnDeleteRepo, btnBrowser;
 
+    @FXML
+    private TextField searchField;
+
     //
     private double xPos, yPos;
     private GHRepository cache = null;
     public static GHRepository SELECTED = null;
+    public Map<String, GHRepository> repos;
 
     @FXML
     private void closeWindow(MouseEvent event) {
@@ -126,10 +136,13 @@ public class HomeController implements Initializable {
             if (selected != null) try {
                 selected.delete();
                 clearDetails();
-                loadRepositories(LoginController.GH_USER);
+                this.repos = null;
+                loadRepositories(LoginController.GH_USER, null);
             } catch (IOException ex) {
                 Utilities.showException("Could not delete the selected repo.", ex);
                 Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                this.cache = null;
             }
         }
     }
@@ -144,6 +157,22 @@ public class HomeController implements Initializable {
             Utilities.showException("Could not open the selected repository.", e);
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    @FXML
+    void reloadRepositories(KeyEvent event) {
+        String search = searchField.getText().trim().toLowerCase();
+        try {
+            loadRepositories(null, search);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void createNewRepository(MouseEvent event) {
+        // TODO: Implement this
+        System.out.println("where the girls at");
     }
 
     /**
@@ -169,7 +198,7 @@ public class HomeController implements Initializable {
             imAvatar.setImage(image);
             avatarPane.setMinWidth(image.getRequestedWidth());
             avatarPane.setMaxWidth(image.getRequestedWidth());
-            loadRepositories(user);
+            loadRepositories(user, null);
             loadFollowers((GHUser) user);
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,11 +241,20 @@ public class HomeController implements Initializable {
         timeline.play();
     }
 
-    private void loadRepositories(GHPerson user) throws IOException {
+    private void loadRepositories(GHPerson user, String filter) throws IOException {
+        if (this.repos == null) {
+            this.repos = new HashMap<>(user.getRepositories());
+        }
         vbRepos.getChildren().clear();
-        for (String key : user.getRepositories().keySet()) {
-            GHRepository repo = user.getRepository(key);
+        for (String key : this.repos.keySet()) {
+            GHRepository repo = this.repos.get(key);
             if (repo != null) {
+                if (filter != null) {
+                    String name = repo.getName().toLowerCase();
+                    if (!name.contains(filter)) {
+                        continue;
+                    }
+                }
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.FXML_REPO_ITEM));
                 RepoItemController controller = new RepoItemController();
                 loader.setController(controller);
