@@ -5,6 +5,8 @@
  */
 package app.controllers;
 
+import de.jensd.fx.glyphs.octicons.OctIcon;
+import de.jensd.fx.glyphs.octicons.OctIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -12,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import org.kohsuke.github.GHRepository;
 
 /**
@@ -23,13 +24,10 @@ import org.kohsuke.github.GHRepository;
 public class RepoItemController implements Initializable {
 
     @FXML
-    private Circle shape;
+    private Label lblRepoName, lblRepoDesc, lblFork;
 
     @FXML
-    private Label lblOwn;
-
-    @FXML
-    private Label lblRepoName, lblRepoDesc, lblPrivate;
+    private OctIconView icon;
 
     //
     private GHRepository repo;
@@ -52,12 +50,20 @@ public class RepoItemController implements Initializable {
     public void setRepository(GHRepository repo) {
         this.repo = repo;
         if (repo.isFork()) {
-            shape.setFill(Paint.valueOf("TOMATO"));
-            lblOwn.setText("Forked Repo");
+            icon.setIcon(OctIcon.REPO_FORKED);
+            icon.setFill(Paint.valueOf("#6A737D"));
+            lblFork.setText("Forked");
+        } else if (repo.isPrivate()) {
+            icon.setIcon(OctIcon.LOCK);
+            icon.setFill(Paint.valueOf("#DBAB09"));
+            lblFork.setText("Private");
+        } else {
+            icon.setIcon(OctIcon.REPO);
+            icon.setFill(Paint.valueOf("#6A737D"));
+            lblFork.setText("Public");
         }
 
         lblRepoName.setText(repo.getName());
-        lblPrivate.setText(repo.isPrivate() ? "Private" : "Public");
         lblRepoDesc.setText("No Description Available.");
         String desc = repo.getDescription();
         if (desc != null && !desc.isEmpty()) {

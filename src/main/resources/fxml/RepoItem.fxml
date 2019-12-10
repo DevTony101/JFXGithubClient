@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="285.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle fx:id="shape" fill="#29b149" layoutX="24.0" layoutY="24.0" radius="10.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="lblOwn" layoutX="45.0" layoutY="16.0" text="Mine" />
+      <Label fx:id="lblFork" layoutX="47.0" layoutY="16.0" text="Forked" />
       <Label fx:id="lblRepoName" layoutX="14.0" layoutY="50.0" prefHeight="32.0" prefWidth="260.0" text="JFXGithubClient">
          <font>
             <Font name="Segoe UI Bold" size="26.0" />
@@ -18,7 +17,7 @@
       </Label>
       <Label fx:id="lblRepoDesc" contentDisplay="TEXT_ONLY" layoutX="10.0" layoutY="92.0" prefHeight="50.0" prefWidth="260.0" wrapText="true" />
       <Hyperlink layoutX="212.0" layoutY="142.0" onAction="#setSelectedRepository" text="See More" />
-      <Label fx:id="lblPrivate" alignment="CENTER" layoutX="207.0" layoutY="15.0" prefHeight="17.0" prefWidth="70.0" style="-fx-border-color: #C8C8C8; -fx-background-radius: 1em; -fx-border-radius: 1em;" text="Private" textAlignment="CENTER" />
       <Separator layoutY="180.0" prefWidth="285.0" style="-fx-background-color: #C8C8C8;" />
+      <OctIconView fx:id="icon" fill="#ffcc00" glyphName="LOCK" layoutX="14.0" layoutY="32.0" size="25" />
    </children>
 </AnchorPane>

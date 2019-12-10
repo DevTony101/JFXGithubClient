@@ -141,8 +141,6 @@ public class HomeController implements Initializable {
             } catch (IOException ex) {
                 Utilities.showException("Could not delete the selected repo.", ex);
                 Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                this.cache = null;
             }
         }
     }
@@ -172,7 +170,6 @@ public class HomeController implements Initializable {
     @FXML
     void createNewRepository(MouseEvent event) {
         // TODO: Implement this
-        System.out.println("where the girls at");
     }
 
     /**
@@ -285,6 +282,7 @@ public class HomeController implements Initializable {
         btnDeleteRepo.setDisable(true);
         btnBrowser.setDisable(true);
         SELECTED = null;
+        this.cache = null;
     }
 
 }
