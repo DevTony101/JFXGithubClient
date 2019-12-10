@@ -9,7 +9,7 @@ The project uses the [Github API for Java](https://github.com/github-api/github-
 The project currently supports the following operations:
 - Log in to your GitHub user account
 - List all your followers
-- List all your repositories (Private and Public)
+- List and search through all your repositories (Private and Public)
 - Delete a repository (Be careful!)
 
 ## Future Improvements
